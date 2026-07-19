@@ -1,0 +1,91 @@
+---
+const stack = ['Next.js', 'TypeScript', 'Postgres + pgvector', 'Drizzle', 'Vercel AI SDK'];
+---
+
+<section id="building" class="now reveal" style="--delay: 3" aria-labelledby="now-title">
+  <p class="eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span>Currently building</p>
+  <h2 id="now-title" class="title">Tracklog</h2>
+  <p class="tagline">A social music journal, in progress</p>
+  <p class="body">
+    Log the albums you listen to, rate and review them, follow friends, and get
+    recommendations that explain <em>why</em> each pick fits your taste.
+  </p>
+  <p class="body">
+    The recommender is deliberately split in two. Retrieval and ranking are pure math — a
+    vector search over a taste profile distilled from listening history — and the language
+    model's only job is to explain the picks it's handed. It never chooses them.
+  </p>
+  <ul class="stack" role="list">
+    {stack.map((item) => <li>{item}</li>)}
+  </ul>
+</section>
+
+<style lang="scss">
+  .eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .eyebrow-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+    animation: pulse 2.4s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    50% {
+      opacity: 0.35;
+    }
+  }
+
+  .title {
+    margin-top: 1.25rem;
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(2.1rem, 4.5vw, 2.8rem);
+    line-height: 1.1;
+  }
+
+  .tagline {
+    margin-top: 0.35rem;
+    font-family: var(--font-display);
+    font-style: italic;
+    color: var(--muted);
+    font-size: 1.3rem;
+  }
+
+  .body {
+    margin-top: 1.25rem;
+    max-width: 38rem;
+
+    em {
+      font-family: var(--font-display);
+    }
+  }
+
+  .stack {
+    margin-top: 1.5rem;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 0.95rem;
+    color: var(--muted);
+
+    li {
+      list-style: none;
+    }
+
+    li + li::before {
+      content: '·';
+      margin-inline: 0.6em;
+    }
+  }
+</style>

@@ -1,0 +1,135 @@
+---
+import { experience, education, type TimelineEntry } from '../data/resume';
+
+const groups: { label: string; entries: TimelineEntry[] }[] = [
+  { label: 'Experience', entries: experience },
+  { label: 'Education', entries: education },
+].filter((group) => group.entries.length > 0);
+---
+
+<section class="path reveal-on-scroll" aria-labelledby="path-title">
+  <h2 id="path-title" class="section-title">Experience &amp; education</h2>
+  {
+    groups.map((group) => (
+      <div class="group">
+        <h3 class="label">{group.label}</h3>
+        <ol class="timeline" role="list">
+          {group.entries.map((item, i) => (
+            <li class="node" style={`--i: ${i}`}>
+              <span class="marker" aria-hidden="true" />
+              <p class="period">{item.period}</p>
+              <p class="role">
+                {item.role} <span class="org">· {item.org}</span>
+              </p>
+              {item.meta && <p class="meta">{item.meta}</p>}
+              {item.detail && <p class="detail">{item.detail}</p>}
+            </li>
+          ))}
+        </ol>
+      </div>
+    ))
+  }
+</section>
+
+<style lang="scss">
+  // The block fades in place (no translate) while its nodes cascade.
+  :global(.js) .path.reveal-on-scroll {
+    transform: none;
+  }
+
+  :global(.js) .node {
+    opacity: 0;
+    transform: translateY(12px);
+    transition:
+      opacity 550ms cubic-bezier(0.2, 0.6, 0.2, 1),
+      transform 550ms cubic-bezier(0.2, 0.6, 0.2, 1);
+    transition-delay: calc(var(--i, 0) * 70ms);
+  }
+
+  .path.is-visible .node {
+    opacity: 1;
+    transform: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .node {
+      transition: none !important;
+      opacity: 1 !important;
+      transform: none !important;
+    }
+  }
+
+  .group {
+    margin-top: 2.25rem;
+
+    &:first-of-type {
+      margin-top: 1.5rem;
+    }
+  }
+
+  .label {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 400;
+    font-size: 1.2rem;
+    color: var(--muted);
+  }
+
+  .timeline {
+    margin-top: 1rem;
+    padding: 0 0 0 1.5rem;
+    list-style: none;
+    border-left: 1px solid var(--line);
+  }
+
+  .node {
+    position: relative;
+    padding-bottom: 2rem;
+
+    &:last-child {
+      padding-bottom: 0;
+    }
+  }
+
+  .marker {
+    position: absolute;
+    left: calc(-1.5rem - 1px);
+    top: 0.5rem;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--paper);
+    border: 1.5px solid var(--accent);
+    transform: translateX(-50%);
+  }
+
+  .period {
+    font-variant-numeric: tabular-nums;
+    font-size: 0.85rem;
+    letter-spacing: 0.02em;
+    color: var(--muted);
+  }
+
+  .role {
+    margin-top: 0.25rem;
+    font-size: 1.15rem;
+    font-weight: 500;
+  }
+
+  .org {
+    font-weight: 400;
+    color: var(--muted);
+  }
+
+  .meta {
+    margin-top: 0.15rem;
+    font-size: 0.95rem;
+    color: var(--muted);
+  }
+
+  .detail {
+    margin-top: 0.5rem;
+    max-width: 34rem;
+    color: var(--muted);
+  }
+</style>

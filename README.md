@@ -1,0 +1,12 @@
+# Portfolio 2026
+
+Portfolio, built with [Astro](https://astro.build).
+
+## Commands
+
+| Command           | Action                                       |
+| :---------------- | :------------------------------------------- |
+| `npm install`     | Install dependencies                         |
+| `npm run dev`     | Start the dev server at `localhost:4321`     |
+| `npm run build`   | Build the production site to `./dist/`       |
+| `npm run preview` | Preview the production build locally         |

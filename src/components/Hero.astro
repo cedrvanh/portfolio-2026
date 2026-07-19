@@ -1,0 +1,39 @@
+---
+---
+
+<section class="hero" aria-label="Introduction">
+  <h1 class="headline reveal" style="--delay: 1">
+    I build web software <em>end to end</em> — from the data model to the last pixel.
+  </h1>
+  <p class="sub reveal" style="--delay: 2">
+    Full-stack developer with a designer's upbringing. Happiest when I get to ship the whole
+    thing: schema, API, interface, and the small details in between.
+  </p>
+</section>
+
+<style lang="scss">
+  .hero {
+    margin-top: clamp(4rem, 14vh, 8rem);
+  }
+
+  .headline {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(2.6rem, 6.5vw, 4rem);
+    line-height: 1.14;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+
+    em {
+      font-style: italic;
+      color: var(--accent);
+    }
+  }
+
+  .sub {
+    margin-top: 1.75rem;
+    max-width: 36rem;
+    color: var(--muted);
+    font-size: 1.1rem;
+  }
+</style>

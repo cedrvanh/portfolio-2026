@@ -1,0 +1,107 @@
+---
+import { projects } from '../data/work';
+---
+
+<section class="work reveal-on-scroll" aria-labelledby="work-title">
+  <h2 id="work-title" class="section-title">Selected work</h2>
+  <ol class="worklist" role="list">
+    {
+      projects.map((project) => {
+        const Row = project.href ? 'a' : 'div';
+        return (
+          <li class="entry">
+            <Row class="row" href={project.href}>
+              <span class="title">{project.title}</span>
+              <span class="detail">{project.detail}</span>
+              <span class="leader" aria-hidden="true" />
+              <span class="year">{project.year}</span>
+            </Row>
+          </li>
+        );
+      })
+    }
+  </ol>
+</section>
+
+<style lang="scss">
+  .worklist {
+    margin-top: 0.75rem;
+    padding: 0;
+    list-style: none;
+  }
+
+  .entry {
+    border-bottom: 1px solid var(--line);
+  }
+
+  .row {
+    display: flex;
+    align-items: baseline;
+    gap: 0.85rem;
+    padding-block: 1.05rem;
+    text-decoration: none;
+  }
+
+  .title {
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  .detail {
+    color: var(--muted);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .leader {
+    flex: 1;
+    min-width: 1.5rem;
+    border-bottom: 1px dotted var(--muted);
+    opacity: 0.45;
+    align-self: center;
+    transform: translateY(0.15em);
+    transition: opacity 150ms ease;
+  }
+
+  .year {
+    font-variant-numeric: tabular-nums;
+    font-size: 0.95rem;
+    color: var(--muted);
+  }
+
+  a.row:hover {
+    color: var(--accent);
+
+    .detail,
+    .year {
+      color: inherit;
+    }
+
+    .leader {
+      opacity: 1;
+      border-color: var(--accent);
+    }
+  }
+
+  @media (max-width: 34rem) {
+    .row {
+      flex-wrap: wrap;
+      row-gap: 0.1rem;
+    }
+
+    .leader {
+      display: none;
+    }
+
+    .year {
+      margin-left: auto;
+    }
+
+    .detail {
+      flex-basis: 100%;
+      order: 4;
+      white-space: normal;
+    }
+  }
+</style>

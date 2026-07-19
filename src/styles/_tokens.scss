@@ -1,0 +1,23 @@
+:root {
+  --paper: #f5f5f2;
+  --ink: #1c1c1a;
+  --muted: #6f6f68;
+  --line: #dcdcd4;
+  --accent: #2c43c7;
+
+  --font-display: 'Gambetta', georgia, serif;
+  --font-body: 'Switzer', system-ui, sans-serif;
+
+  --measure: 46rem;
+  --space-section: clamp(5.5rem, 13vh, 9rem);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #141412;
+    --ink: #e9e8e2;
+    --muted: #8d8d85;
+    --line: #2b2b27;
+    --accent: #93a3ff;
+  }
+}

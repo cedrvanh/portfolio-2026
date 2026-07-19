@@ -1,0 +1,46 @@
+---
+const links = [
+  { label: 'Email', href: 'mailto:c.vanhaegenberg@outlook.com' },
+  { label: 'GitHub', href: 'https://github.com/cedrvanh' },
+  { label: 'LinkedIn', href: 'https://linkedin.com/in/cedric-vanhaegenberg-4421ba195/' },
+];
+---
+
+<footer class="footer reveal-on-scroll">
+  <h2 class="section-title" id="contact-title">Contact</h2>
+  <p class="pitch">The inbox is open — say hi.</p>
+  <ul class="links" role="list" aria-labelledby="contact-title">
+    {links.map((link) => <li><a href={link.href}>{link.label}</a></li>)}
+  </ul>
+  <p class="colophon">
+    © 2026 Cedric Vanhaegenberg · Set in Gambetta &amp; Switzer · Built with Astro
+  </p>
+</footer>
+
+<style lang="scss">
+  .footer {
+    margin-top: var(--space-section);
+  }
+
+  .pitch {
+    margin-top: 1.25rem;
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+  }
+
+  .links {
+    margin-top: 1rem;
+    padding: 0;
+    display: flex;
+    gap: 1.5rem;
+    list-style: none;
+  }
+
+  .colophon {
+    margin-top: 4rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--line);
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+</style>

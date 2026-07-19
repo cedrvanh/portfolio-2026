@@ -1,0 +1,39 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Not found — Cedric Vanhaegenberg">
+  <main class="lost">
+    <p class="lost__eyebrow">Side C</p>
+    <h1 class="lost__headline">This side doesn't exist.</h1>
+    <a class="lost__back" href="/">Flip back to side A</a>
+  </main>
+</BaseLayout>
+
+<style lang="scss">
+  .lost {
+    min-height: 100dvh;
+    max-width: var(--measure);
+    margin-inline: auto;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 1rem;
+
+    &__eyebrow {
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    &__headline {
+      font-family: var(--font-display);
+      font-weight: 400;
+      font-size: clamp(2rem, 6vw, 3rem);
+    }
+  }
+</style>

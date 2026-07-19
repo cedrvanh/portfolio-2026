@@ -1,0 +1,103 @@
+<div class="cursor-dot" aria-hidden="true"></div>
+<div class="cursor-ring" aria-hidden="true"></div>
+
+<style is:global>
+  html.custom-cursor,
+  html.custom-cursor * {
+    cursor: none !important;
+  }
+
+  .cursor-dot,
+  .cursor-ring {
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 80;
+    border-radius: 50%;
+    opacity: 0;
+    transition: opacity 200ms ease;
+  }
+
+  .cursor-dot {
+    width: 5px;
+    height: 5px;
+    margin: -2.5px 0 0 -2.5px;
+    background: var(--accent);
+  }
+
+  .cursor-ring {
+    width: 22px;
+    height: 22px;
+    margin: -11px 0 0 -11px;
+    border: 1px solid var(--accent);
+  }
+
+  html.custom-cursor.cursor-seen .cursor-dot,
+  html.custom-cursor.cursor-seen .cursor-ring {
+    opacity: 1;
+  }
+</style>
+
+<script>
+  const root = document.documentElement;
+  const fine = window.matchMedia('(pointer: fine)');
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const dot = document.querySelector<HTMLElement>('.cursor-dot');
+  const ring = document.querySelector<HTMLElement>('.cursor-ring');
+
+  if (!fine.matches || !dot || !ring) {
+    dot?.remove();
+    ring?.remove();
+  } else {
+    root.classList.add('custom-cursor');
+
+    let mx = window.innerWidth / 2;
+    let my = window.innerHeight / 2;
+    let rx = mx;
+    let ry = my;
+    let scale = 1;
+    let scaleTarget = 1;
+    let raf = 0;
+
+    const wake = () => {
+      if (!raf) raf = requestAnimationFrame(frame);
+    };
+
+    const frame = () => {
+      raf = 0;
+      const ease = reduce.matches ? 1 : 0.16;
+      rx += (mx - rx) * ease;
+      ry += (my - ry) * ease;
+      scale += (scaleTarget - scale) * (reduce.matches ? 1 : 0.2);
+      dot.style.transform = `translate3d(${mx}px, ${my}px, 0)`;
+      ring.style.transform = `translate3d(${rx}px, ${ry}px, 0) scale(${scale})`;
+      if (Math.abs(mx - rx) + Math.abs(my - ry) > 0.1 || Math.abs(scaleTarget - scale) > 0.002) {
+        raf = requestAnimationFrame(frame);
+      }
+    };
+
+    window.addEventListener('pointermove', (e) => {
+      mx = e.clientX;
+      my = e.clientY;
+      root.classList.add('cursor-seen');
+      wake();
+    });
+
+    window.addEventListener('pointerdown', () => {
+      // Quick press pulse: knock the ring small and let the lerp spring it back.
+      scale = Math.min(scale, 0.7);
+      wake();
+    });
+
+    document.addEventListener('pointerover', (e) => {
+      const el = e.target instanceof Element ? e.target.closest('a, button') : null;
+      scaleTarget = el ? 1.5 : 1;
+      wake();
+    });
+
+    document.addEventListener('mouseleave', () => {
+      root.classList.remove('cursor-seen');
+    });
+  }
+</script>

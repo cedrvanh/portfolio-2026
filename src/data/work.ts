@@ -1,20 +1,24 @@
 export interface Project {
   title: string;
-  detail: string;
+  tagline: string;
+  stack: string[];
   year: string;
+  status?: 'building';
   href?: string;
 }
 
 export const projects: Project[] = [
   {
     title: 'Tracklog',
-    detail: 'social music journal with an AI recommender',
+    tagline: 'A social music journal',
+    stack: ['Next.js', 'TypeScript', 'Postgres + pgvector', 'Drizzle', 'Vercel AI SDK'],
     year: '2026',
-    href: '#building',
+    status: 'building',
   },
   {
     title: 'This site',
-    detail: 'hand-rolled in Astro, no framework on the client',
+    tagline: 'Hand-rolled in Astro',
+    stack: ['Astro', 'TypeScript', 'SCSS'],
     year: '2026',
     href: 'https://github.com/cedrvanh',
   },

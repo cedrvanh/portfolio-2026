@@ -1,0 +1,196 @@
+---
+import { projects } from '../data/work';
+---
+
+<section class="work reveal-on-scroll" aria-labelledby="work-title">
+  <h2 id="work-title" class="section-title">Selected work</h2>
+  <ol class="worklist" role="list">
+    {
+      projects.map((project, i) => {
+        const building = project.status === 'building';
+        const Row = project.href ? 'a' : 'div';
+        return (
+          <li class="entry" style={`--i: ${i}`}>
+            <Row
+              class="row"
+              href={project.href}
+              {...(project.href ? { target: '_blank', rel: 'noreferrer' } : {})}
+            >
+              <span class="head">
+                <span class="name">
+                  {building && <span class="dot" aria-hidden="true" />}
+                  {building && <span class="sr-only">Currently building — </span>}
+                  {project.title}
+                </span>
+                <span class="tagline">{project.tagline}</span>
+                <span class="leader" aria-hidden="true" />
+                <span class="year">{project.year}</span>
+              </span>
+              <span class="stack">{project.stack.join(' · ')}</span>
+            </Row>
+          </li>
+        );
+      })
+    }
+  </ol>
+</section>
+
+<style lang="scss">
+  // Cancels the shared reveal translate so only the entries move.
+  :global(.js) .work.reveal-on-scroll {
+    transform: none;
+  }
+
+  :global(.js) .entry {
+    opacity: 0;
+    transform: translateY(12px);
+    transition:
+      opacity 550ms cubic-bezier(0.2, 0.6, 0.2, 1),
+      transform 550ms cubic-bezier(0.2, 0.6, 0.2, 1);
+    transition-delay: calc(var(--i, 0) * 90ms);
+  }
+
+  .work.is-visible .entry {
+    opacity: 1;
+    transform: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .entry {
+      transition: none !important;
+      opacity: 1 !important;
+      transform: none !important;
+    }
+  }
+
+  .worklist {
+    margin-top: 0.75rem;
+    padding: 0;
+    list-style: none;
+  }
+
+  .entry {
+    border-bottom: 1px solid var(--line);
+  }
+
+  .row {
+    display: block;
+    padding-block: 1.15rem;
+    text-decoration: none;
+  }
+
+  .head {
+    display: flex;
+    align-items: baseline;
+    gap: 0.85rem;
+  }
+
+  .name {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    flex-shrink: 0;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  .dot {
+    align-self: center;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--accent);
+    animation: pulse 2.4s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    50% {
+      opacity: 0.35;
+    }
+  }
+
+  .tagline {
+    color: var(--muted);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .leader {
+    flex: 1;
+    min-width: 1.5rem;
+    align-self: center;
+    border-bottom: 1px dotted var(--muted);
+    opacity: 0.45;
+    transform: translateY(0.15em);
+    transition: opacity 150ms ease;
+  }
+
+  .year {
+    flex-shrink: 0;
+    font-variant-numeric: tabular-nums;
+    font-size: 0.95rem;
+    color: var(--muted);
+  }
+
+  .stack {
+    display: block;
+    margin-top: 0.3rem;
+    font-size: 0.85rem;
+    letter-spacing: 0.01em;
+    color: var(--muted);
+    opacity: 0.85;
+  }
+
+  a.row:hover {
+    color: var(--accent);
+
+    .tagline,
+    .year,
+    .stack {
+      color: inherit;
+    }
+
+    .leader {
+      opacity: 1;
+      border-color: var(--accent);
+    }
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  @media (max-width: 34rem) {
+    .head {
+      flex-wrap: wrap;
+      row-gap: 0.15rem;
+    }
+
+    .leader {
+      display: none;
+    }
+
+    .year {
+      margin-left: auto;
+    }
+
+    .tagline {
+      flex-basis: 100%;
+      order: 4;
+      white-space: normal;
+    }
+
+    .stack {
+      margin-top: 0.45rem;
+    }
+  }
+</style>

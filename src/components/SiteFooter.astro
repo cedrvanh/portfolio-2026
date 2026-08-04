@@ -1,8 +1,16 @@
 ---
+import EmailIcon from '../assets/icons/email.svg';
+import GithubIcon from '../assets/icons/github.svg';
+import LinkedinIcon from '../assets/icons/linkedin.svg';
+
 const links = [
-  { label: 'Email', href: 'mailto:c.vanhaegenberg@outlook.com' },
-  { label: 'GitHub', href: 'https://github.com/cedrvanh' },
-  { label: 'LinkedIn', href: 'https://linkedin.com/in/cedric-vanhaegenberg-4421ba195/' },
+  { label: 'Email', href: 'mailto:c.vanhaegenberg@outlook.com', Icon: EmailIcon },
+  { label: 'GitHub', href: 'https://github.com/cedrvanh', Icon: GithubIcon },
+  {
+    label: 'LinkedIn',
+    href: 'https://linkedin.com/in/cedric-vanhaegenberg-4421ba195/',
+    Icon: LinkedinIcon,
+  },
 ];
 
 const year = new Date().getFullYear();
@@ -12,7 +20,16 @@ const year = new Date().getFullYear();
   <h2 class="section-title" id="contact-title">Contact</h2>
   <p class="pitch">The inbox is open - say hi.</p>
   <ul class="links" role="list" aria-labelledby="contact-title">
-    {links.map((link) => <li><a href={link.href} target="_blank" rel="noopener noreferrer">{link.label}</a></li>)}
+    {
+      links.map(({ label, href, Icon }) => (
+        <li>
+          <a href={href} target="_blank" rel="noopener noreferrer">
+            <Icon class="icon" aria-hidden="true" focusable="false" />
+            {label}
+          </a>
+        </li>
+      ))
+    }
   </ul>
   <p class="colophon">
     © {year} Cedric Vanhaegenberg
@@ -27,22 +44,42 @@ const year = new Date().getFullYear();
   .pitch {
     margin-top: 1.25rem;
     font-family: var(--font-display);
-    font-size: 1.5rem;
+    font-size: var(--text-xl);
   }
 
   .links {
     margin-top: 1rem;
     padding: 0;
     display: flex;
-    gap: 1.5rem;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.5rem;
     list-style: none;
+
+    a {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5em;
+    }
+  }
+
+  .icon {
+    width: 1em;
+    height: 1em;
+    fill: currentColor;
+    opacity: 0.55;
+    transition: opacity 150ms ease;
+  }
+
+  a:hover .icon,
+  a:focus-visible .icon {
+    opacity: 1;
   }
 
   .colophon {
     margin-top: 4rem;
     padding-top: 1.25rem;
     border-top: 1px solid var(--line);
-    font-size: 0.85rem;
+    font-size: var(--text-sm);
     color: var(--muted);
   }
 </style>

@@ -1,14 +1,14 @@
 ---
-import { experience, education, type TimelineEntry } from '../data/resume';
+import { experience, education, type ResumeEntry } from '../data/resume';
 
-const groups: { label: string; entries: TimelineEntry[] }[] = [
+const groups: { label: string; entries: ResumeEntry[] }[] = [
   { label: 'Experience', entries: experience },
   { label: 'Education', entries: education },
 ].filter((group) => group.entries.length > 0);
 ---
 
-<section class="path reveal-on-scroll" aria-labelledby="path-title">
-  <h2 id="path-title" class="section-title">Experience &amp; education</h2>
+<section class="experience reveal-on-scroll" aria-labelledby="experience-title">
+  <h2 id="experience-title" class="section-title">Experience &amp; education</h2>
   {
     groups.map((group) => (
       <div class="group">
@@ -33,7 +33,7 @@ const groups: { label: string; entries: TimelineEntry[] }[] = [
 
 <style lang="scss">
   // The block fades in place (no translate) while its nodes cascade.
-  :global(.js) .path.reveal-on-scroll {
+  :global(.js) .experience.reveal-on-scroll {
     transform: none;
   }
 
@@ -46,7 +46,7 @@ const groups: { label: string; entries: TimelineEntry[] }[] = [
     transition-delay: calc(var(--i, 0) * 70ms);
   }
 
-  .path.is-visible .node {
+  .experience.is-visible .node {
     opacity: 1;
     transform: none;
   }
@@ -71,7 +71,7 @@ const groups: { label: string; entries: TimelineEntry[] }[] = [
     font-family: var(--font-display);
     font-style: italic;
     font-weight: 400;
-    font-size: 1.2rem;
+    font-size: var(--text-lg);
     color: var(--muted);
   }
 
@@ -105,14 +105,14 @@ const groups: { label: string; entries: TimelineEntry[] }[] = [
 
   .period {
     font-variant-numeric: tabular-nums;
-    font-size: 0.85rem;
+    font-size: var(--text-sm);
     letter-spacing: 0.02em;
     color: var(--muted);
   }
 
   .role {
     margin-top: 0.25rem;
-    font-size: 1.15rem;
+    font-size: var(--text-base);
     font-weight: 500;
   }
 
@@ -123,7 +123,7 @@ const groups: { label: string; entries: TimelineEntry[] }[] = [
 
   .meta {
     margin-top: 0.15rem;
-    font-size: 0.95rem;
+    font-size: var(--text-sm);
     color: var(--muted);
   }
 

@@ -1,10 +1,10 @@
 ---
-import { projects } from '../data/work';
+import { projects } from '../data/projects';
 ---
 
-<section class="work reveal-on-scroll" aria-labelledby="work-title">
-  <h2 id="work-title" class="section-title">Selected work</h2>
-  <ol class="worklist" role="list">
+<section class="projects reveal-on-scroll" aria-labelledby="projects-title">
+  <h2 id="projects-title" class="section-title">Selected work</h2>
+  <ol class="project-list" role="list">
     {
       projects.map((project, i) => {
         const building = project.status === 'building';
@@ -37,7 +37,7 @@ import { projects } from '../data/work';
 
 <style lang="scss">
   // Cancels the shared reveal translate so only the entries move.
-  :global(.js) .work.reveal-on-scroll {
+  :global(.js) .projects.reveal-on-scroll {
     transform: none;
   }
 
@@ -50,7 +50,7 @@ import { projects } from '../data/work';
     transition-delay: calc(var(--i, 0) * 90ms);
   }
 
-  .work.is-visible .entry {
+  .projects.is-visible .entry {
     opacity: 1;
     transform: none;
   }
@@ -63,7 +63,7 @@ import { projects } from '../data/work';
     }
   }
 
-  .worklist {
+  .project-list {
     margin-top: 0.75rem;
     padding: 0;
     list-style: none;
@@ -129,7 +129,7 @@ import { projects } from '../data/work';
   .stack {
     display: block;
     margin-top: 0.3rem;
-    font-size: 0.85rem;
+    font-size: var(--text-sm);
     letter-spacing: 0.01em;
     color: var(--muted);
     opacity: 0.85;
@@ -138,7 +138,7 @@ import { projects } from '../data/work';
   .employer {
     display: block;
     margin-top: 0.2rem;
-    font-size: 0.8rem;
+    font-size: var(--text-xs);
     font-style: italic;
     color: var(--muted);
     opacity: 0.7;

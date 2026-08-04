@@ -1,4 +1,4 @@
-export interface TimelineEntry {
+export interface ResumeEntry {
   role: string;
   org: string;
   meta?: string;
@@ -6,7 +6,7 @@ export interface TimelineEntry {
   detail?: string;
 }
 
-export const experience: TimelineEntry[] = [
+export const experience: ResumeEntry[] = [
   {
     role: 'Full-stack Developer',
     org: 'Dynamate',
@@ -32,7 +32,7 @@ export const experience: TimelineEntry[] = [
   },
 ];
 
-export const education: TimelineEntry[] = [
+export const education: ResumeEntry[] = [
   {
     role: 'Bachelor, Graphic & Digital Media, New Media Development',
     org: 'Arteveldehogeschool',

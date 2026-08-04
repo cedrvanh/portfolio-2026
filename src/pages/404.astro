@@ -2,7 +2,11 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
-<BaseLayout title="Not found — Cedric Vanhaegenberg">
+<BaseLayout
+  title="Not found — Cedric Vanhaegenberg"
+  description="This page doesn't exist. Head back to the homepage."
+  noindex={true}
+>
   <main class="not-found">
     <p class="not-found__eyebrow">404</p>
     <h1 class="not-found__headline">This page doesn't exist.</h1>

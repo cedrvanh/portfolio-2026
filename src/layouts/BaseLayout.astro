@@ -5,12 +5,55 @@ import CustomCursor from '../components/CustomCursor.astro';
 interface Props {
   title?: string;
   description?: string;
+  noindex?: boolean;
 }
 
 const {
   title = 'Cedric Vanhaegenberg — Full stack developer',
   description = 'Full stack developer from Ghent, Belgium. I build web applications with a strong focus on UX/UI design.',
+  noindex = false,
 } = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const ogImage = new URL('/og.png', Astro.site);
+const isHome = Astro.url.pathname === '/';
+
+const personSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Cedric Vanhaegenberg',
+  url: Astro.site?.href,
+  image: ogImage.href,
+  jobTitle: 'Full Stack Developer',
+  description,
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Ghent',
+    addressCountry: 'BE',
+  },
+  sameAs: [
+    'https://github.com/cedrvanh',
+    'https://linkedin.com/in/cedric-vanhaegenberg-4421ba195/',
+  ],
+  worksFor: {
+    '@type': 'Organization',
+    name: 'Dynamate',
+  },
+  alumniOf: {
+    '@type': 'Organization',
+    name: 'Arteveldehogeschool',
+  },
+  knowsAbout: [
+    'TypeScript',
+    'JavaScript',
+    'PHP',
+    'Laravel',
+    'Next.js',
+    'React',
+    'Shopify',
+    'Accessibility',
+  ],
+};
 ---
 
 <!doctype html>
@@ -23,12 +66,33 @@ const {
     </script>
     <title>{title}</title>
     <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+    {noindex && <meta name="robots" content="noindex, follow" />}
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Cedric Vanhaegenberg — Full stack developer" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:site_name" content="Cedric Vanhaegenberg" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/favicon.png" />
     <link rel="preconnect" href="https://api.fontshare.com" crossorigin />
     <link
       rel="stylesheet"
       href="https://api.fontshare.com/v2/css?f[]=gambetta@400,500,400i&f[]=switzer@400,500&display=swap"
     />
+    {isHome && <script type="application/ld+json" set:html={JSON.stringify(personSchema)} />}
   </head>
   <body>
     <slot />

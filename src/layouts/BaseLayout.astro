@@ -9,7 +9,7 @@ interface Props {
 }
 
 const {
-  title = 'Cedric Vanhaegenberg — Full stack developer',
+  title = 'Cedric Vanhaegenberg - Full stack developer',
   description = 'Full stack developer from Ghent, Belgium. I build web applications with a strong focus on UX/UI design.',
   noindex = false,
 } = Astro.props;
@@ -85,8 +85,10 @@ const personSchema = {
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
 
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <link rel="apple-touch-icon" href="/favicon.png" />
+    <link rel="icon" href="/icon-192.png" type="image/png" sizes="192x192" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="preconnect" href="https://api.fontshare.com" crossorigin />
     <link
       rel="stylesheet"

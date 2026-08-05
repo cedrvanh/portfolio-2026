@@ -4,6 +4,7 @@ export interface Project {
   stack: string[];
   status?: 'building';
   href?: string;
+  repoHref?: string;
   /** Set when this was built as part of paid work for an employer, not a personal project. */
   employer?: string;
 }
@@ -14,12 +15,13 @@ export const projects: Project[] = [
     tagline: 'A social music journal',
     stack: ['Next.js', 'TypeScript', 'Postgres', 'pgvector', 'Drizzle', 'Vercel AI SDK'],
     href: 'https://tracklog-eight.vercel.app',
+    repoHref: 'https://github.com/cedrvanh/tracklog',
   },
   {
     title: 'This portfolio',
     tagline: 'Redesign of my previous portfolio',
     stack: ['Astro', 'TypeScript', 'SCSS'],
-    href: 'https://github.com/cedrvanh',
+    repoHref: 'https://github.com/cedrvanh/portfolio-2026',
   },
   {
     title: 'Mobietec',

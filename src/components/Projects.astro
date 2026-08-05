@@ -1,4 +1,5 @@
 ---
+import GithubIcon from '../assets/icons/github.svg';
 import { projects } from '../data/projects';
 ---
 
@@ -8,26 +9,41 @@ import { projects } from '../data/projects';
     {
       projects.map((project, i) => {
         const building = project.status === 'building';
-        const Row = project.href ? 'a' : 'div';
         return (
           <li class="entry" style={`--i: ${i}`}>
-            <Row
-              class="row"
-              href={project.href}
-              {...(project.href ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-            >
+            <div class="row">
               <span class="head">
-                <span class="name">
+                <h3 class="name">
                   {building && <span class="dot" aria-hidden="true" />}
                   {building && <span class="sr-only">Currently building — </span>}
                   {project.title}
-                </span>
+                </h3>
                 <span class="tagline">{project.tagline}</span>
                 <span class="leader" aria-hidden="true" />
               </span>
               <span class="stack">{project.stack.join(' · ')}</span>
               {project.employer && <span class="employer">Built at {project.employer}</span>}
-            </Row>
+              {(project.href || project.repoHref) && (
+                <ul class="links" role="list">
+                  {project.href && (
+                    <li>
+                      <a href={project.href} target="_blank" rel="noopener noreferrer">
+                        View<span class="sr-only"> {project.title}</span>
+                        <span aria-hidden="true">↗</span>
+                      </a>
+                    </li>
+                  )}
+                  {project.repoHref && (
+                    <li>
+                      <a href={project.repoHref} target="_blank" rel="noopener noreferrer">
+                        <GithubIcon class="icon" aria-hidden="true" focusable="false" />
+                        GitHub<span class="sr-only"> repository for {project.title}</span>
+                      </a>
+                    </li>
+                  )}
+                </ul>
+              )}
+            </div>
           </li>
         );
       })
@@ -36,7 +52,6 @@ import { projects } from '../data/projects';
 </section>
 
 <style lang="scss">
-  // Cancels the shared reveal translate so only the entries move.
   :global(.js) .projects.reveal-on-scroll {
     transform: none;
   }
@@ -90,6 +105,8 @@ import { projects } from '../data/projects';
     align-items: baseline;
     gap: 0.5rem;
     flex-shrink: 0;
+    margin: 0;
+    font-size: inherit;
     font-weight: 500;
     white-space: nowrap;
   }
@@ -144,18 +161,47 @@ import { projects } from '../data/projects';
     opacity: 0.7;
   }
 
-  a.row:hover {
-    color: var(--accent);
+  .entry:hover .leader {
+    opacity: 1;
+  }
 
-    .tagline,
-    .stack {
-      color: inherit;
+  .links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.25rem;
+    margin-top: 0.5rem;
+    padding: 0;
+    list-style: none;
+
+    a {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4em;
+      padding-block: 0.35rem;
+      margin-block: -0.35rem;
+      font-size: var(--text-sm);
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 150ms ease;
     }
 
-    .leader {
-      opacity: 1;
-      border-color: var(--accent);
+    a:hover,
+    a:focus-visible {
+      color: var(--accent);
     }
+  }
+
+  .icon {
+    width: 1em;
+    height: 1em;
+    fill: currentColor;
+    opacity: 0.55;
+    transition: opacity 150ms ease;
+  }
+
+  .links a:hover .icon,
+  .links a:focus-visible .icon {
+    opacity: 1;
   }
 
   .sr-only {

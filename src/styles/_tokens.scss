@@ -17,3 +17,11 @@
   --measure: 46rem;
   --space-section: clamp(5.5rem, 13vh, 9rem);
 }
+
+@media (max-width: 34rem) {
+  :root {
+    --text-sm: 0.85rem;
+    --text-base: 1rem;
+    --text-lg: 1.1rem;
+  }
+}

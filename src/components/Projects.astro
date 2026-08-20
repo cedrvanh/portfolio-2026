@@ -28,8 +28,9 @@ import { projects } from '../data/projects';
                   {project.href && (
                     <li>
                       <a href={project.href} target="_blank" rel="noopener noreferrer">
-                        View<span class="sr-only"> {project.title}</span>
-                        <span aria-hidden="true">↗</span>
+                        <span class="label">View</span>
+                        <span class="suffix" aria-hidden="true">↗</span>
+                        <span class="sr-only"> {project.title}</span>
                       </a>
                     </li>
                   )}
@@ -37,7 +38,8 @@ import { projects } from '../data/projects';
                     <li>
                       <a href={project.repoHref} target="_blank" rel="noopener noreferrer">
                         <GithubIcon class="icon" aria-hidden="true" focusable="false" />
-                        GitHub<span class="sr-only"> repository for {project.title}</span>
+                        <span class="label">GitHub</span>
+                        <span class="sr-only"> repository for {project.title}</span>
                       </a>
                     </li>
                   )}
@@ -168,21 +170,32 @@ import { projects } from '../data/projects';
   .links {
     display: flex;
     flex-wrap: wrap;
+    align-items: center;
     gap: 0.5rem 1.25rem;
     margin-top: 0.5rem;
     padding: 0;
     list-style: none;
 
+    li {
+      display: flex;
+      align-items: center;
+    }
+
     a {
       display: inline-flex;
       align-items: center;
       gap: 0.4em;
+      line-height: 1;
       padding-block: 0.35rem;
-      margin-block: -0.35rem;
       font-size: var(--text-sm);
       color: var(--muted);
       text-decoration: none;
       transition: color 150ms ease;
+    }
+
+    .label,
+    .suffix {
+      line-height: 1;
     }
 
     a:hover,
@@ -192,6 +205,8 @@ import { projects } from '../data/projects';
   }
 
   .icon {
+    display: block;
+    flex-shrink: 0;
     width: 1em;
     height: 1em;
     fill: currentColor;
